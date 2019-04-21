@@ -1,0 +1,14 @@
+package com.cp.controller;
+
+import org.springframework.web.servlet.ModelAndView;
+
+@org.springframework.stereotype.Controller
+public class Controller {
+
+	public ModelAndView home()
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("home");
+		return mv;
+	}
+}

@@ -1,0 +1,37 @@
+package com.cp.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.cp.dao.UserDAO;
+import com.cp.model.User;
+
+@org.springframework.stereotype.Controller
+public class Controller {
+
+	@Autowired
+	UserDAO userDao;
+	
+	@RequestMapping("home")
+	public ModelAndView home()
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("home");
+		return mv;
+	}
+	
+	@RequestMapping("show")
+	public ModelAndView show(User user)
+	{
+		userDao.save(user);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("show");
+		Iterable<User> itr = userDao.findAll();
+		mv.addObject("itr", itr);
+		itr.forEach(curUser -> {
+			System.out.println(((User) curUser).getId() + " "+((User) curUser).getName());
+		});
+		return mv;
+	}
+}
